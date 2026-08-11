@@ -1,0 +1,11 @@
+{
+  "cssTheme": "Minimal",
+  "translucency": true,
+  "theme": "obsidian",
+  "baseFontSizeAction": true,
+  "enabledCssSnippets": [
+    "obsidian",
+    "line-numbers"
+  ],
+  "baseFontSize": 16
+}

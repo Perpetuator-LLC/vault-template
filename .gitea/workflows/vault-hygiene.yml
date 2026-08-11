@@ -1,0 +1,47 @@
+name: vault-hygiene
+# Runs the vault checks on every backup push (the obsidian-git plugin pushes several
+# times/day) + a nightly full pass.
+#
+# REPORT-ONLY by design: this vault's git is owned by the obsidian-git plugin, so CI
+# never commits fixes — a failing run means "drift exists", and the failure (plus the
+# drift issue below) is the signal to fix locally and let the next sync push clear it.
+on:
+  push:
+    branches: [main]
+  schedule:
+    # vault-init.sh rewrites this minute so each vault gets its own off-minute slot and
+    # a fleet of vaults doesn't stampede the runner. Taken: :23 notes-perpetuator,
+    # :37 notes-nik, :51 notes-invest.
+    - cron: "13 5 * * *"   # {{CRON_SLOT}}
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Vault check (report-only)
+        run: ./scripts/vault-check.sh
+      - name: Plugin pins vs vendored copies
+        run: ./scripts/vault-plugins.sh --check
+      - name: Open/refresh drift issue on failure
+        if: failure()
+        env:
+          TOKEN: ${{ secrets.GITEA_TOKEN }}
+        run: |
+          if [ -z "$TOKEN" ]; then
+            echo "No GITEA_TOKEN secret configured — skipping issue creation (the failed run is still the signal)."
+            exit 0
+          fi
+          BODY="vault-hygiene failed on $(date -u +%F) — run \`./scripts/vault-check.sh\` (and \`./scripts/vault-plugins.sh --check\`) locally for the finding list, fix, and let the next sync push clear this. Workflow: ${{ gitea.server_url }}/${{ gitea.repository }}/actions/runs/${{ gitea.run_number }}"
+          EXISTING=$(curl -s -H "Authorization: token $TOKEN" \
+            "${{ gitea.server_url }}/api/v1/repos/${{ gitea.repository }}/issues?state=open&q=vault-hygiene&type=issues" | \
+            python3 -c "import sys,json; d=json.load(sys.stdin); print(d[0]['number'] if d else '')")
+          if [ -n "$EXISTING" ]; then
+            curl -s -X POST -H "Authorization: token $TOKEN" -H "Content-Type: application/json" \
+              -d "{\"body\": $(python3 -c "import json,sys;print(json.dumps(sys.argv[1]))" "$BODY")}" \
+              "${{ gitea.server_url }}/api/v1/repos/${{ gitea.repository }}/issues/$EXISTING/comments" >/dev/null
+          else
+            curl -s -X POST -H "Authorization: token $TOKEN" -H "Content-Type: application/json" \
+              -d "{\"title\": \"vault-hygiene: drift detected\", \"body\": $(python3 -c "import json,sys;print(json.dumps(sys.argv[1]))" "$BODY")}" \
+              "${{ gitea.server_url }}/api/v1/repos/${{ gitea.repository }}/issues" >/dev/null
+          fi

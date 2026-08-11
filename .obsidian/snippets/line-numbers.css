@@ -1,0 +1,20 @@
+pre > code {
+    counter-reset: line-number;
+}
+
+pre > code > span {
+    display: block;
+    counter-increment: line-number;
+    position: relative;
+    padding-left: 2em;
+}
+
+pre > code > span::before {
+    content: counter(line-number);
+    position: absolute;
+    left: 0;
+    width: 1.5em;
+    text-align: right;
+    color: var(--text-faint);
+}
+

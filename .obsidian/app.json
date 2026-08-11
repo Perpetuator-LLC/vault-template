@@ -1,0 +1,19 @@
+{
+  "showLineNumber": true,
+  "vimMode": true,
+  "alwaysUpdateLinks": true,
+  "attachmentFolderPath": "Attachments",
+  "newFileLocation": "current",
+  "showUnsupportedFiles": true,
+  "readableLineLength": false,
+  "useTab": false,
+  "promptDelete": false,
+  "trashOption": "local",
+  "pdfExportSettings": {
+    "includeName": true,
+    "pageSize": "Letter",
+    "landscape": false,
+    "margin": "2",
+    "downscalePercent": 70
+  }
+}
