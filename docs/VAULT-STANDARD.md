@@ -65,6 +65,34 @@ the thing that must be versioned.
 Never un-ignore a second one to make a setting stick. If a plugin's settings must be shared,
 extract the non-secret subset into a tracked file and have the plugin read that.
 
+### ⚠️ But `.gitignore` is intent, not enforcement — the plugin stages ignored files
+
+**Do not build your protection on the ignore rule.** Verified in `notes-invest` on 2026-08-12:
+
+```
+9a5b761  vault backup: 2026-08-12 13:07:05   <- ADDED .obsidian/workspace.json
+683fb93  Merge pull request #1 (vault setup) <- its parent
+```
+
+That is obsidian-git's **first auto-commit after the setup landed**, and it added
+`.obsidian/workspace.json` while **line 20 of `.gitignore` at that same commit excluded the path by
+name**. Confirmed via `git log --diff-filter=A` and by reading `.gitignore` at the adding commit.
+
+The consequence is not about pane layouts. **A gitignored `plugins/*/data.json` holding an API key
+would be committed the same way.** So the controls, in descending order of how much they are worth:
+
+1. **Do not install a credential-storing plugin into a git-synced vault.** This is the only control
+   that holds without the plugin's cooperation, and it is why **Copilot is excluded from this
+   template's baseline** — that exclusion is the primary mitigation, not a size optimization.
+2. **`scripts/vault-check.sh`, which reads `git ls-files`** — what is *actually tracked*, not what
+   the rules claim. It caught this exact drift. But it is **detective, not preventive**: when it
+   fires, the file is already committed and pushed. If that file held a key, rotation is already
+   required.
+3. **`.gitignore`** — keep it, it expresses the intent and it does stop a human `git add .`. Do not
+   count on it against the plugin.
+
+Related fleet ticket: `perpetuator/mcp#179`.
+
 `scripts/vault-check.sh` enforces all of it in CI:
 
 1. no plugin `data.json` tracked except `obsidian-git`'s

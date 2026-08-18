@@ -41,8 +41,10 @@ and pushing on its own.
 | **CI** | `vault-hygiene` — runs the checks on every backup push + nightly, report-only |
 
 Not included by default: **Copilot**. It is 5.3 MB and stores an API key in its `data.json`.
-Install it per-vault from the community browser if you want it; the ignore rules already keep its
-settings out of git.
+**Leaving it out is a security control, not a size optimization** — obsidian-git has been observed
+committing files that `.gitignore` excludes by name (see
+[docs/VAULT-STANDARD.md §4](docs/VAULT-STANDARD.md)), so an ignore rule will not reliably keep a
+credential-bearing settings file out of a vault that has the plugin installed.
 
 ---
 
@@ -74,6 +76,10 @@ secret into a tracked file — Copilot's `data.json` **does** hold an API key. S
 | **Tracked** | `.obsidian/*.json`, `snippets/`, `themes/`, `plugins/*/{main.js,manifest.json,styles.css}` |
 | **Ignored** | `workspace*.json` (per-machine pane layout, churns every session), `plugins/*/data.json` |
 | **The one exception** | `plugins/obsidian-git/data.json` — no credential fields, and its sync cadence must be versioned |
+
+⚠️ **The ignore rule is intent, not enforcement** — obsidian-git has been caught staging a file
+`.gitignore` excluded by name. The real controls are *not installing credential-storing plugins* and
+*the check below*. See [docs/VAULT-STANDARD.md §4](docs/VAULT-STANDARD.md).
 
 `scripts/vault-check.sh` enforces this rather than trusting it:
 
