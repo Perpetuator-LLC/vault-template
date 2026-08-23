@@ -187,6 +187,39 @@ no wiki-links precisely so that copying **it** is safe; the hazard is copying th
 **Verify it, don't assume it renders:** a malformed Base block silently shows an error where the
 table should be. Parse every ```` ```base ```` block as YAML after editing the landing page.
 
+## 8. Every lane has a `DASHBOARD.md`, and chat carries only deltas
+
+**Directive (Nik, 2026-08-23).** Chat loops scroll pending questions out of view, and re-printing
+them every turn wastes tokens and his attention. **The document is the surface; chat carries the
+delta.** So every lane keeps a **living** `DASHBOARD.md`, and his own master page aggregates across
+lanes (`Engagements/Internal/State/Nik.md` in the Perpetuator vault — the cockpit was already the
+designed home for this).
+
+**Shape** — see `DASHBOARD.md` in this template:
+
+1. **Pending on Nik, in priority order** — highest first.
+2. **Active work for the lane** — what it is doing and what blocks it.
+3. **Deeper** — thin pointers only.
+
+**Three properties, and each has a failure it prevents:**
+
+- **Latest-wins, edited IN PLACE, rows deleted when done.** ⛔ **Named anti-pattern: the
+  ORCHESTRATOR-BOARD's banner-stack** — a page that grows by prepending dated blocks becomes a log,
+  and a log cannot be read for current state. Same defect mcp#303 recorded for State docs being
+  turned into run journals.
+- **Every pending row is ANSWERABLE FROM THE PAGE.** State the question *and its options* inline; the
+  link is for the reasoning, not the answer. A row reading *"D5's disposition"* is a **label** — it is
+  the agent's index of its own documents, and it makes the human do the reading. If he must open the
+  link to learn what his choices are, the row has failed. *(This is the `operating-canon` self-
+  containment rule applied to a document instead of a message.)*
+- **Priority order is real, not decorative.** Security and anything blocking other lanes outrank
+  confirmations and review requests.
+
+**Placement:** vault lanes keep `DASHBOARD.md` at the vault root beside `Landing.md`. **Repo lanes
+(`mcp`, `cc-be`, `rp-fe`, …) keep it at the repo root**, same shape — the standard is about the
+surface, not about being a vault. Link it from `Landing.md`/`README.md` so it is one click from the
+pinned page.
+
 ## Retrofit checklist — bringing an existing vault to the standard
 
 Observed drift as of 2026-08-11:
