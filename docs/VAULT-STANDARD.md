@@ -201,7 +201,7 @@ designed home for this).
 2. **Active work for the lane** — what it is doing and what blocks it.
 3. **Deeper** — thin pointers only.
 
-**Four properties, and each has a failure it prevents:**
+**Five properties, and each has a failure it prevents:**
 
 - **Latest-wins, edited IN PLACE, rows deleted when done.** ⛔ **Named anti-pattern: the
   ORCHESTRATOR-BOARD's banner-stack** — a page that grows by prepending dated blocks becomes a log,
@@ -214,6 +214,13 @@ designed home for this).
   containment rule applied to a document instead of a message.)*
 - **Priority order is real, not decorative.** Security and anything blocking other lanes outrank
   confirmations and review requests.
+- **"PENDING ON NIK" MEANS ACTIONABLE BY HIM *NOW*.** A **decided-but-unexecuted** item is not
+  pending on him — it waits on an **event**, and it belongs in *Active work* **with its trigger
+  named** ("waits on: X answered", "waits on: the #261 re-scope"). *(Ruled 2026-08-23 on the `nik`
+  lane's check.)* Otherwise the pending list stops meaning *"what is waiting on you"* and becomes
+  *"everything unfinished"* — at which point he has to re-triage it every time he opens the page,
+  which is the work the dashboard exists to remove. This is the `operating-canon` comms split —
+  `## 👤 You` versus `## ⏭️ Later (blocked on …)` — applied to a document instead of a message.
 - ⭐ **NAME WHICH DOCUMENT HOLDS THE HISTORY BEFORE WRITING THE ONE THAT MUST NOT.** *(Contributed by
   the `inference` lane from its port, 2026-08-23 — live in its page as `STATE.md` keeps the
   newest-first record, `DASHBOARD.md` says only what is true now, rows deleted when done.)* **This is
