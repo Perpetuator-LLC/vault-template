@@ -201,7 +201,7 @@ designed home for this).
 2. **Active work for the lane** — what it is doing and what blocks it.
 3. **Deeper** — thin pointers only.
 
-**Six properties, and each has a failure it prevents:**
+**Seven properties, and each has a failure it prevents:**
 
 - **Latest-wins, edited IN PLACE, rows deleted when done.** ⛔ **Named anti-pattern: the
   ORCHESTRATOR-BOARD's banner-stack** — a page that grows by prepending dated blocks becomes a log,
@@ -221,6 +221,15 @@ designed home for this).
   *"everything unfinished"* — at which point he has to re-triage it every time he opens the page,
   which is the work the dashboard exists to remove. This is the `operating-canon` comms split —
   `## 👤 You` versus `## ⏭️ Later (blocked on …)` — applied to a document instead of a message.
+- **RUNNABLE ITEMS LIVE OUTSIDE THE TABLE.** *(From the `cc-fe` lane's port, 2026-08-23.)* **Fenced
+  code blocks inside a markdown table cell render LITERALLY in Gitea** — the reader sees the
+  backticks, and the copy button that makes a hand-over one click is simply absent. So a row that
+  needs a command **names the action and links down** to a fenced block placed *below* the table,
+  with the `► <machine>` header and `🔑 PROMPTS` line intact per the comms canon. This is not
+  cosmetic: an uncopyable command is a **hand-over defect** — it silently converts "paste this" into
+  "retype this correctly", which is where typos in production commands come from. It also lines up
+  with the canon's existing rule that user-action steps read like a **recipe**: a numbered sequence
+  in execution order, which a one-line table cell cannot hold anyway.
 - 🔴 **PLACEMENT YIELDS TO DISCLOSURE — a PUBLIC repo never hosts the real dashboard.** *(From the
   `ai` lane's port, 2026-08-23 — a correct refusal of the dispatch as issued.)* The repo-root rule
   above is about convenience; **this one overrides it.** A priority-ordered list of what is broken and
