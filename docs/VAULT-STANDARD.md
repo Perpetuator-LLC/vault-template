@@ -201,7 +201,7 @@ designed home for this).
 2. **Active work for the lane** — what it is doing and what blocks it.
 3. **Deeper** — thin pointers only.
 
-**Three properties, and each has a failure it prevents:**
+**Four properties, and each has a failure it prevents:**
 
 - **Latest-wins, edited IN PLACE, rows deleted when done.** ⛔ **Named anti-pattern: the
   ORCHESTRATOR-BOARD's banner-stack** — a page that grows by prepending dated blocks becomes a log,
@@ -214,6 +214,16 @@ designed home for this).
   containment rule applied to a document instead of a message.)*
 - **Priority order is real, not decorative.** Security and anything blocking other lanes outrank
   confirmations and review requests.
+- ⭐ **NAME WHICH DOCUMENT HOLDS THE HISTORY BEFORE WRITING THE ONE THAT MUST NOT.** *(Contributed by
+  the `inference` lane from its port, 2026-08-23 — live in its page as `STATE.md` keeps the
+  newest-first record, `DASHBOARD.md` says only what is true now, rows deleted when done.)* **This is
+  the property that keeps the other three true over time.** "Latest-wins, don't append" is a
+  discipline everyone intends and nobody sustains, because deleting a row feels like destroying
+  information — so the row gets kept "just for now", and the page becomes a log. Once history has a
+  **named home**, deletion is a *move*, not a loss, and the discipline survives contact with a busy
+  week. ⛔ Note the anti-pattern this standard names — the ORCHESTRATOR-BOARD banner-stack — **also
+  started as good intentions**; it decayed for exactly this reason. A lane that cannot name where its
+  history lives has not finished adopting this standard.
 
 **Placement:** vault lanes keep `DASHBOARD.md` at the vault root beside `Landing.md`. **Repo lanes
 (`mcp`, `cc-be`, `rp-fe`, …) keep it at the repo root**, same shape — the standard is about the
