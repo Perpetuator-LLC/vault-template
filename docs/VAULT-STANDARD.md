@@ -133,6 +133,30 @@ unique per vault, so a fleet of vaults doesn't stampede the runner at `:00`:
 
 ---
 
+## 7. Every vault has a landing page, and it carries a recent-files Base
+
+**Directive (Nik, 2026-08-23).** Every vault we create has a landing page, and that landing page
+includes a **Base listing files sorted most-recently-edited first**. His reasoning: *"this lets me
+pin that page and every time I open the vault I can see the recent pages you edited, which is 99% of
+what I care to look at."*
+
+That makes the landing page an **operational surface, not a table of contents** — the one pinned tab
+that answers "what changed?" without a search. `Landing.md` in this template carries the reference
+implementation; copy it verbatim rather than re-deriving the Base syntax.
+
+**Two views ship, and both are load-bearing:**
+
+- **Everything** — the honest recency answer, no exclusions beyond `Templates/`.
+- **Docs only (no journals/threads)** — because nightly ingest engines write journal entries
+  continuously, and without this view a vault with active ingest shows nothing but its own exhaust.
+
+⚠️ **Do not port the older "exclude SOPs" filter** some vaults carry (`sop_id.isEmpty()`). It was
+written for a different purpose and it hides exactly the documents most likely to have just been
+edited — a freshly-amended SOP is invisible in a view that filters SOPs out.
+
+**Verify it, don't assume it renders:** a malformed Base block silently shows an error where the
+table should be. Parse every ```` ```base ```` block as YAML after editing the landing page.
+
 ## Retrofit checklist — bringing an existing vault to the standard
 
 Observed drift as of 2026-08-11:
