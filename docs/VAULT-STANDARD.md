@@ -257,7 +257,26 @@ allowed to write*; the other five are properties of the page itself.
   started as good intentions**; it decayed for exactly this reason. A lane that cannot name where its
   history lives has not finished adopting this standard.
 
-### Enforcement — make the visibility precondition a CI guard, not a habit
+### Enforcement has TWO halves — a note on the page, and a check in the pipeline
+
+*(The pairing is `cc-fe`'s, 2026-08-23.)* **"Verify before placing" protects only the MOMENT OF
+WRITING.** It is a point-in-time check, and it expires the instant anything changes — most obviously
+when a **private repo is made public** months later by someone who never read this standard and has
+no reason to re-audit a file that was correct when it landed.
+
+So the sensitive row carries its own **durable note, on the page, beside the content it governs** —
+cc-fe's shape: *"if this repo goes public, item X moves private-side."* That note **travels with the
+content**: it survives a repo rename, a move, a copy into another lane's dashboard, and a reader who
+has never seen this document.
+
+The two halves cover different failures and neither substitutes for the other:
+
+| Half | Catches | Blind to |
+|---|---|---|
+| **Note on the page** (cc-fe) | the content-level question — *should this row be here at all?* | a repo that goes public while nobody is reading the page |
+| **CI guard** (inference, below) | the repo-level condition, on every build, mechanically | *which rows* are sensitive — it only knows the file exists |
+
+### The CI guard — make the visibility precondition mechanical, not a habit
 
 *(From the `inference` lane, commit `a571d2e` — ~15 lines, repo-agnostic. **Lift it on your next
 `ci.yml` touch.**)* It queries the forge for the repo's visibility and fails the build when a
