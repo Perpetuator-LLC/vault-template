@@ -152,7 +152,21 @@ implementation; copy it verbatim rather than re-deriving the Base syntax.
 
 ⚠️ **Do not port the older "exclude SOPs" filter** some vaults carry (`sop_id.isEmpty()`). It was
 written for a different purpose and it hides exactly the documents most likely to have just been
-edited — a freshly-amended SOP is invisible in a view that filters SOPs out.
+edited — a freshly-amended SOP is invisible in a view that filters SOPs out. Live specimens found
+during the 2026-08-23 rollout: `notes-invest` and `notes-nik`.
+
+⚠️ **Check the BASE-LEVEL `filters:` block, not just each view's.** In the reference vault the
+`sop_id.isEmpty()` exclusion sits at the **top level** of the base — so it applies to *every* view in
+it, including ones whose own `filters:` look clean. **That location is the more dangerous one**,
+because someone auditing a view sees only the view's filters and concludes it is fine. Read both
+levels before declaring a Base a recency view.
+
+⚠️ **Verify every wiki-link target exists in YOUR vault before shipping.** A landing page ported
+verbatim inherits the source vault's links, and they die silently in the destination — the reference
+vault's `[[SOPs/README]]` is live there and dead in any vault without that index doc. *(Caught by the
+weown lane mid-application; the notes-nik lane adapted around it independently — twice in one
+rollout, which is what makes it a standard line rather than a note.)* The Base block itself carries
+no wiki-links precisely so that copying **it** is safe; the hazard is copying the whole page.
 
 **Verify it, don't assume it renders:** a malformed Base block silently shows an error where the
 table should be. Parse every ```` ```base ```` block as YAML after editing the landing page.
