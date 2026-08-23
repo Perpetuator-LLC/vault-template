@@ -201,7 +201,7 @@ designed home for this).
 2. **Active work for the lane** — what it is doing and what blocks it.
 3. **Deeper** — thin pointers only.
 
-**Five properties, and each has a failure it prevents:**
+**Six properties, and each has a failure it prevents:**
 
 - **Latest-wins, edited IN PLACE, rows deleted when done.** ⛔ **Named anti-pattern: the
   ORCHESTRATOR-BOARD's banner-stack** — a page that grows by prepending dated blocks becomes a log,
@@ -221,6 +221,18 @@ designed home for this).
   *"everything unfinished"* — at which point he has to re-triage it every time he opens the page,
   which is the work the dashboard exists to remove. This is the `operating-canon` comms split —
   `## 👤 You` versus `## ⏭️ Later (blocked on …)` — applied to a document instead of a message.
+- 🔴 **PLACEMENT YIELDS TO DISCLOSURE — a PUBLIC repo never hosts the real dashboard.** *(From the
+  `ai` lane's port, 2026-08-23 — a correct refusal of the dispatch as issued.)* The repo-root rule
+  above is about convenience; **this one overrides it.** A priority-ordered list of what is broken and
+  not yet fixed is a **disclosure roadmap** — and it needs **no secret in it to be dangerous**, which
+  is exactly why a secret-scanner will not catch it and a reviewer will not flag it. Public repos get
+  **at most a thin, public-safe pointer page**; the real dashboard lives on the private side. Landed
+  reference: the `ai` lane's dashboard sits in `notes-weown` beside its board, not in the public repo.
+  ⚠️ **Know which of your repos are public before you place anything** — in this org that is
+  **`operating-canon`** and **`secure-js-config`**; everything else is private today, and "today" is
+  the operative word since visibility can change under a page that was placed when it was private.
+  Same class as **mcp#255** (P1, open — the public forge org exposing the secret-store map, infra IPs
+  and client emails).
 - ⭐ **NAME WHICH DOCUMENT HOLDS THE HISTORY BEFORE WRITING THE ONE THAT MUST NOT.** *(Contributed by
   the `inference` lane from its port, 2026-08-23 — live in its page as `STATE.md` keeps the
   newest-first record, `DASHBOARD.md` says only what is true now, rows deleted when done.)* **This is
