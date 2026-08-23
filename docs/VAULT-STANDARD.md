@@ -161,6 +161,22 @@ it, including ones whose own `filters:` look clean. **That location is the more 
 because someone auditing a view sees only the view's filters and concludes it is fine. Read both
 levels before declaring a Base a recency view.
 
+⚠️ **Sealed content: ship `Everything` unfiltered — except paths under an explicit seal, excluded
+and documented in place.** The general rule, and it is the one that gets missed: **an exclusion at
+the seal must be mirrored in every ENUMERATING surface, Bases included.** A Base is not a viewer of
+content; it is an *index over paths and titles*, and an index leaks what the content itself is
+protecting. Precedent, measured rather than theorised: **mcp#277** (P1, closed) — `vault_index`
+surfaced path, title and description for **all 642** `pii_classification: raw` entries while the
+bodies were correctly protected; its own finding was *"a perfect raw marker leaks anyway if the index
+built over it is readable."* **Copy its remedy shape: count, never name** — a sealed area renders as a
+count, not as rows.
+
+⚠️ **The inline "do not remove this filter" note is a REQUIREMENT, not decoration.** A seal filter
+looks like exactly the kind of thing a conformance pass tidies away — *"the standard says ship
+Everything unfiltered"* — and removing it **silently unseals the folder** with no error and no
+diff anyone reads as dangerous. The note is what stops a correct-looking cleanup from being a
+disclosure. Reference implementation: the `notes-nik` estate exclusion.
+
 ⚠️ **Verify every wiki-link target exists in YOUR vault before shipping.** A landing page ported
 verbatim inherits the source vault's links, and they die silently in the destination — the reference
 vault's `[[SOPs/README]]` is live there and dead in any vault without that index doc. *(Caught by the
