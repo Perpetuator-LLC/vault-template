@@ -201,6 +201,10 @@ designed home for this).
 2. **Active work for the lane** — what it is doing and what blocks it.
 3. **Deeper** — thin pointers only.
 
+**Two of the seven below are PRECONDITIONS — settle them before you write the page, not after:**
+**where the history lives** (⭐) and **whether this repo is public** (🔴). Both change *what you are
+allowed to write*; the other five are properties of the page itself.
+
 **Seven properties, and each has a failure it prevents:**
 
 - **Latest-wins, edited IN PLACE, rows deleted when done.** ⛔ **Named anti-pattern: the
@@ -252,6 +256,25 @@ designed home for this).
   week. ⛔ Note the anti-pattern this standard names — the ORCHESTRATOR-BOARD banner-stack — **also
   started as good intentions**; it decayed for exactly this reason. A lane that cannot name where its
   history lives has not finished adopting this standard.
+
+### Enforcement — make the visibility precondition a CI guard, not a habit
+
+*(From the `inference` lane, commit `a571d2e` — ~15 lines, repo-agnostic. **Lift it on your next
+`ci.yml` touch.**)* It queries the forge for the repo's visibility and fails the build when a
+**public** repo has a **root-level `DASHBOARD.md`**, naming the remedy in the failure message;
+private repos pass.
+
+Two port notes from inference, worth carrying verbatim because each is a general lesson:
+
+- **The UNKNOWN branch is the load-bearing one.** When the API is unreachable the guard says
+  **UNKNOWN, loudly** — it never passes silently. *A control that cannot measure must say so*;
+  otherwise an outage in the thing it queries is indistinguishable from a clean result, which is how
+  a guard becomes decoration.
+- **Test the parse, don't eyeball it.** Python prints booleans **capitalized** (`True`/`False`), so a
+  guard matching lowercase `true` would have warned UNKNOWN *forever* while checking nothing —
+  green-looking, permanently inert. Caught only by **exercising all three branches** (public-fails ·
+  private-passes · unreachable-says-unknown) against fake inputs. This is the same class the fleet
+  catalogues elsewhere: the check that reports healthy while doing nothing.
 
 **Placement:** vault lanes keep `DASHBOARD.md` at the vault root beside `Landing.md`. **Repo lanes
 (`mcp`, `cc-be`, `rp-fe`, …) keep it at the repo root**, same shape — the standard is about the
