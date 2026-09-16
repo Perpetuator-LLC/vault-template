@@ -3,8 +3,8 @@
 What makes a repo a *vault* here, why each rule exists, and how to bring an existing vault up to
 the standard.
 
-This was written by distilling four vaults that already existed — `notes-perpetuator`,
-`notes-weown`, `notes-nik`, `notes-invest` — each of which had solved the same problems slightly
+This was written by distilling four vaults that already existed — `the company vault`,
+`a client vault`, `the personal vault`, `the investing vault` — each of which had solved the same problems slightly
 differently. Where they disagreed, this document picks one answer and says why.
 
 ---
@@ -50,7 +50,7 @@ it. This is why `vault-hygiene.yml` never writes to the repo.
 
 **Sync settings** — commit 5 min · push 15 min · pull 30 min · **pull-on-boot** · `syncMethod:
 merge`. Pull-on-boot is what stops a phone edit and a desktop edit from colliding; merge (never
-rebase) is what keeps the plugin's automatic conflict handling sane. `notes-perpetuator` runs with
+rebase) is what keeps the plugin's automatic conflict handling sane. `the company vault` runs with
 pull-on-boot off — that is the older setting, not the standard.
 
 ## 4. Tracking config means guarding against secrets in config
@@ -67,7 +67,7 @@ extract the non-secret subset into a tracked file and have the plugin read that.
 
 ### ⚠️ But `.gitignore` is intent, not enforcement — the plugin stages ignored files
 
-**Do not build your protection on the ignore rule.** Verified in `notes-invest` on 2026-08-12:
+**Do not build your protection on the ignore rule.** Verified in `the investing vault` on 2026-08-12:
 
 ```
 9a5b761  vault backup: 2026-08-12 13:07:05   <- ADDED .obsidian/workspace.json
@@ -91,7 +91,6 @@ would be committed the same way.** So the controls, in descending order of how m
 3. **`.gitignore`** — keep it, it expresses the intent and it does stop a human `git add .`. Do not
    count on it against the plugin.
 
-Related fleet ticket: `perpetuator/mcp#179`.
 
 `scripts/vault-check.sh` enforces all of it in CI:
 
@@ -125,9 +124,9 @@ unique per vault, so a fleet of vaults doesn't stampede the runner at `:00`:
 
 | Vault | Nightly (UTC) |
 |---|---|
-| `notes-perpetuator` | `23 5` |
-| `notes-nik` | `37 5` |
-| `notes-invest` | `51 5` |
+| `the company vault` | `23 5` |
+| `the personal vault` | `37 5` |
+| `the investing vault` | `51 5` |
 
 `vault-init.sh` assigns a new vault its own minute deterministically from the vault name.
 
@@ -163,9 +162,9 @@ Observed drift as of 2026-08-11:
 
 | Vault | Drift | Fix |
 |---|---|---|
-| `notes-weown` | `.gitignore` excludes **all** of `.obsidian/` — no config in git at all, so a clone opens as a bare vault with no theme, no plugins, no sync | adopt the ignore rules below; commit the config, snippets, theme, and plugin binaries |
-| `notes-perpetuator` | tracks `.obsidian/workspace.json` (per-machine churn); vendors Copilot, whose `data.json` sits one `git add` away from the repo | untrack `workspace.json`; confirm `plugins/*/data.json` is ignored |
-| `notes-nik` | tracks `.DS_Store` (×10) and `.obsidian/snippets/.DS_Store`; Minimal pinned at 8.1.2 while the others run 8.2.1; no `obsidian-git` plugin vendored at all | untrack `.DS_Store`; run `vault-plugins.sh` |
+| `a client vault` | `.gitignore` excludes **all** of `.obsidian/` — no config in git at all, so a clone opens as a bare vault with no theme, no plugins, no sync | adopt the ignore rules below; commit the config, snippets, theme, and plugin binaries |
+| `the company vault` | tracks `.obsidian/workspace.json` (per-machine churn); vendors Copilot, whose `data.json` sits one `git add` away from the repo | untrack `workspace.json`; confirm `plugins/*/data.json` is ignored |
+| `the personal vault` | tracks `.DS_Store` (×10) and `.obsidian/snippets/.DS_Store`; Minimal pinned at 8.1.2 while the others run 8.2.1; no `obsidian-git` plugin vendored at all | untrack `.DS_Store`; run `vault-plugins.sh` |
 
 Steps, per vault:
 
@@ -187,7 +186,7 @@ human decision; the check reports them rather than fixing them.
   exists for. Install it per-vault if wanted; the ignore rules already contain it.
 - **No content scaffolding.** Folder taxonomy is a per-vault decision; `CLAUDE.md` and `Landing.md`
   ship with the table stub and nothing more.
-- **No vault linter.** `notes-perpetuator` and `notes-nik` share a `vault_lint.py` tuned to their
+- **No vault linter.** `the company vault` and `the personal vault` share a `vault_lint.py` tuned to their
   own structure (SOP registers, `destiny:` frontmatter, root allowlists). That is content policy,
   not vault mechanics, and does not generalize. `vault-check.sh` covers only what *every* vault
   has: its Obsidian config.

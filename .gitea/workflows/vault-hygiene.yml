@@ -10,8 +10,8 @@ on:
     branches: [main]
   schedule:
     # vault-init.sh rewrites this minute so each vault gets its own off-minute slot and
-    # a fleet of vaults doesn't stampede the runner. Taken: :23 notes-perpetuator,
-    # :37 notes-nik, :51 notes-invest.
+    # a fleet of vaults doesn't stampede the runner. Taken: :23 the company vault,
+    # :37 the personal vault, :51 the investing vault.
     - cron: "13 5 * * *"   # {{CRON_SLOT}}
 
 jobs:

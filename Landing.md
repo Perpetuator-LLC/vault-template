@@ -56,7 +56,7 @@ views:
 
 <!-- Keep BOTH views. "Everything" is the true recency answer; "Docs only" exists because
      nightly ingest engines write journal entries continuously and would otherwise flood the
-     list. Reference implementation: notes-perpetuator/Landing.md. -->
+     list. Reference implementation: the company vault/Landing.md. -->
 
 ## Start here
 
