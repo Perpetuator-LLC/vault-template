@@ -5,8 +5,8 @@ The starting point for a **git-synced Obsidian vault**. Generate from this repo 
 vault that opens ready to use — theme, snippets, hotkeys, and `obsidian-git` already configured
 and already syncing — on desktop *and* on a phone.
 
-Distilled from the four vaults that came before it (`notes-perpetuator`, `notes-weown`,
-`notes-nik`, `notes-invest`), which had each solved this differently and drifted apart.
+Distilled from the four vaults that came before it (`the company vault`, `a client vault`,
+`the personal vault`, `the investing vault`), which had each solved this differently and drifted apart.
 
 ---
 
