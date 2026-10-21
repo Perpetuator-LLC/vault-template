@@ -23,6 +23,10 @@
 !.obsidian/plugins/obsidian-git/data.json
 .obsidian/plugins/*/*.js.map
 
+# A person's own settings folder (Settings → Files and links → Override config folder,
+# e.g. .obsidian-alex): per device, never shared. See docs/VAULT-STANDARD.md §2.
+.obsidian-*/
+
 # Obsidian local trash (trashOption: "local")
 .trash/
 
