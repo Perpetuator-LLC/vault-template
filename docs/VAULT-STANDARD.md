@@ -35,7 +35,27 @@ on a phone. The chicken has to be in the egg.
 Cost is ~3.7 MB per vault. The usual objection to vendoring — binaries silently rotting — is
 answered by pinning (§5), not by avoiding it.
 
+### Shared defaults in `.obsidian/`, personal settings in `.obsidian-<name>/`
+
+The tracked `.obsidian/` is what **everyone** who opens the vault gets, so it holds only neutral
+defaults: no vim mode, no personal theme or hotkeys. A person's own preferences live in their own
+config folder, set per device in Obsidian under **Settings → Files and links → Override config
+folder** (for example `.obsidian-alex`). Obsidian then reads and writes that folder on that device
+only.
+
+- `.gitignore` ignores `.obsidian-*/`, so a personal folder never reaches the repo or another
+  person's clone. Someone who wants theirs on every device keeps it in their own repo and copies or
+  links it in.
+- **Changing settings by asking an AI** follows the same split. "Turn on vim keys for me" edits the
+  person's own folder on their device. "Make the vault dark for everyone" is a config change to
+  `.obsidian/`, and ships as a PR like any other (§3).
+
 ## 3. The `obsidian-git` plugin owns `main`
+
+**Unless something else already writes `main`.** A vault that is also served by a web editor whose
+server commits edits to `main` already has a writer. Adding `obsidian-git` makes two automatic
+committers race on one branch. Choose one writer per vault before vendoring the plugin, and say
+which in the vault's README.
 
 The plugin auto-commits every ~5 min and pushes every ~15 min. Everything else follows from that:
 
