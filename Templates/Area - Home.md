@@ -1,6 +1,6 @@
 ---
 id: <uuid4>
-type: pointer
+type: index
 title: <Area> - Home
 status: draft
 owner: <one owner>
@@ -31,3 +31,5 @@ core documents, not to every file. Pick a row and follow its page down.
 3. Add a row here only for a new sub-area, or for a new landing page or core doc of an existing one.
 4. A fix to a process goes into its SOP (with a dated line under its changes), so the next run
    doesn't hit the same problem.
+5. Append-only records (journal entries, ingest output, run logs) are not linked one by one: they
+   are reached through the state page or SOP they feed, or a recent-files Base.

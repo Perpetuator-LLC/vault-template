@@ -190,6 +190,9 @@ SOP for a task, without search and without already knowing the file name.
   A page nobody linked can only be found by someone who already knows it exists.
 - **A fix to a process is absorbed into its SOP**, so the path from the root always ends at the
   current procedure, not at a journal entry describing a workaround.
+- **Not every record.** High-volume append-only records (the journal entries and ingest output §7
+  describes, run logs) are reached through the current-state page or procedure they feed, or a
+  recent-files Base, not linked one by one from a landing page, which they would flood.
 
 In this template, `Landing.md` is the root (§7 also makes it the recent-files surface) and
 `Templates/Area - Home.md` is the skeleton for an area's landing page.
