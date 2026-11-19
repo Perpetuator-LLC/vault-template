@@ -176,6 +176,31 @@ edited — a freshly-amended SOP is invisible in a view that filters SOPs out.
 **Verify it, don't assume it renders:** a malformed Base block silently shows an error where the
 table should be. Parse every ```` ```base ```` block as YAML after editing the landing page.
 
+## 8. Every page hangs under one landing page, reachable from the root
+
+**Directive (Nik, 2026-11-19).** Every vault starts with a top-level page. That page links to one
+landing page per area; each landing page links down to the next level, and so on. The result is a
+hierarchy the graph view shows, and a path any agent on any machine can walk from the root to the
+SOP for a task, without search and without already knowing the file name.
+
+- **The root links to landing pages only, never to every file.** A root that lists files becomes a
+  second, stale index.
+- **Each landing page carries an `Up:` link to its parent** and links only its own next level.
+- **Before adding a page, decide which landing page it belongs under, and link it from there.**
+  A page nobody linked can only be found by someone who already knows it exists.
+- **A fix to a process is absorbed into its SOP**, so the path from the root always ends at the
+  current procedure, not at a journal entry describing a workaround.
+- **Not every record.** High-volume append-only records (the journal entries and ingest output §7
+  describes, run logs) are reached through the current-state page or procedure they feed, or a
+  recent-files Base, not linked one by one from a landing page, which they would flood.
+
+In this template, `Landing.md` is the root (§7 also makes it the recent-files surface) and
+`Templates/Area - Home.md` is the skeleton for an area's landing page.
+
+**Scope.** This governs navigation, not storage: it does not move files or impose a folder
+taxonomy, and it applies going forward. An existing vault is retrofitted by adding the root's area
+links and the missing landing pages, not by reorganizing.
+
 ## Retrofit checklist — bringing an existing vault to the standard
 
 Observed drift as of 2026-08-11:
