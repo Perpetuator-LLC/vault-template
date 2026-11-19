@@ -125,7 +125,9 @@ docs/
   VAULT-STANDARD.md what makes a vault a vault here, and why each rule exists
 CLAUDE.md           agent tripwire layer (templated)
 AGENTS.md           pointer for non-Claude agents
-Landing.md          vault entry point (templated)
+Landing.md          vault entry point and root of the page hierarchy (templated)
+Templates/
+  Area - Home.md    skeleton for each area's landing page
 ```
 
 See **[docs/VAULT-STANDARD.md](docs/VAULT-STANDARD.md)** for the reasoning behind each rule and

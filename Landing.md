@@ -66,7 +66,21 @@ views:
 
 ## Areas
 
-<!-- One line per top-level folder: what it holds and what rule governs it. -->
+This page is the vault's root. It links to **one landing page per area**, never to individual
+files. Each area's landing page (its `<Area> - Home` page) links to the next level down, and so
+on to the area's procedures (SOPs), so anyone, human or agent, can walk from here to any process.
+
+| Area | Landing page | What you find there |
+|---|---|---|
+| _(one row per area)_ | _(`[[<Area> - Home]]`, made from `Templates/Area - Home.md`)_ | |
+
+### How to add a page
+
+1. **Decide where it goes first:** which area, and which landing page under it, owns the page.
+2. Put the file in that area's folder and **link it from that landing page**, not from here.
+3. Add a row above only for a **new area**; give the new area a landing page made from
+   `Templates/Area - Home.md` (its **Up:** link points back here).
+4. A fix to a process goes **into that process's SOP**, so the next run does not hit it again.
 
 ## Vault mechanics
 
